@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
   Firestore.instance
@@ -7,6 +9,26 @@ void main() {
       .document()
       .setData({"from": "Daniel", "texto": "Ola!"});
   runApp(MyApp());
+}
+
+final googleSingIn = GoogleSignIn();
+final auth = FirebaseAuth.instance;
+
+Future<Null> _ensureLoggedIn() async {
+  GoogleSignInAccount user = googleSingIn.currentUser;
+  if (user == null) {
+    user = await googleSingIn.signInSilently();
+  }
+  if (user == null) {
+    user = await googleSingIn.signIn();
+  }
+
+  if (await auth.currentUser() == null) {
+    GoogleSignInAuthentication credentials =
+        await googleSingIn.currentUser.authentication;
+    await auth.signInWithCredential(GoogleAuthProvider.getCredential(
+        idToken: credentials.idToken, accessToken: credentials.accessToken));
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -36,23 +58,20 @@ class _chatScreenState extends State<chatScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-              child: ListView(
-                children: <Widget>[
-                  ChatMessage(),
-                  ChatMessage(),
-                  ChatMessage(),
-                ],
-              ),
-
+            child: ListView(
+              children: <Widget>[
+                ChatMessage(),
+                ChatMessage(),
+                ChatMessage(),
+              ],
+            ),
           ),
           Divider(
             height: 1,
           ),
           Container(
             decoration: BoxDecoration(
-              color: Theme
-                  .of(context)
-                  .cardColor,
+              color: Theme.of(context).cardColor,
             ),
             child: TextComposer(),
           )
@@ -73,21 +92,19 @@ class _TextComposerState extends State<TextComposer> {
   @override
   Widget build(BuildContext context) {
     return IconTheme(
-      data: IconThemeData(color: Theme
-          .of(context)
-          .accentColor),
+      data: IconThemeData(color: Theme.of(context).accentColor),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
           children: <Widget>[
             Container(
               child:
-              IconButton(icon: Icon(Icons.photo_camera), onPressed: () {}),
+                  IconButton(icon: Icon(Icons.photo_camera), onPressed: () {}),
             ),
             Expanded(
               child: TextField(
                 decoration:
-                InputDecoration.collapsed(hintText: "Enviar uma mensagem"),
+                    InputDecoration.collapsed(hintText: "Enviar uma mensagem"),
                 onChanged: (text) {
                   setState(() {
                     _isCompose = text.length > 0;
@@ -127,10 +144,7 @@ class ChatMessage extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "Amanda",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .subhead,
+                  style: Theme.of(context).textTheme.subhead,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 5),
