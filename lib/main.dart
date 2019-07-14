@@ -35,9 +35,24 @@ class _chatScreenState extends State<chatScreen> {
       ),
       body: Column(
         children: <Widget>[
+          Expanded(
+              child: ListView(
+                children: <Widget>[
+                  ChatMessage(),
+                  ChatMessage(),
+                  ChatMessage(),
+                ],
+              ),
+
+          ),
+          Divider(
+            height: 1,
+          ),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: Theme
+                  .of(context)
+                  .cardColor,
             ),
             child: TextComposer(),
           )
@@ -58,19 +73,21 @@ class _TextComposerState extends State<TextComposer> {
   @override
   Widget build(BuildContext context) {
     return IconTheme(
-      data: IconThemeData(color: Theme.of(context).accentColor),
+      data: IconThemeData(color: Theme
+          .of(context)
+          .accentColor),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
           children: <Widget>[
             Container(
               child:
-                  IconButton(icon: Icon(Icons.photo_camera), onPressed: () {}),
+              IconButton(icon: Icon(Icons.photo_camera), onPressed: () {}),
             ),
             Expanded(
               child: TextField(
                 decoration:
-                    InputDecoration.collapsed(hintText: "Enviar uma mensagem"),
+                InputDecoration.collapsed(hintText: "Enviar uma mensagem"),
                 onChanged: (text) {
                   setState(() {
                     _isCompose = text.length > 0;
@@ -85,6 +102,44 @@ class _TextComposerState extends State<TextComposer> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ChatMessage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Row(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.only(right: 10),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://t3.ftcdn.net/jpg/02/76/19/80/240_F_276198003_Hrr4gw0CQ3jbU8jr17kecXw9TZpgE3xM.jpg"),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "Amanda",
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .subhead,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  child: Text("Teste"),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
