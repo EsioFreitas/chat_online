@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "526592724550",
+    "firebase_url": "https://chatonline-10d46.firebaseio.com",
+    "project_id": "chatonline-10d46",
+    "storage_bucket": "chatonline-10d46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526592724550:android:f77e867bba76a6f9",
+        "android_client_info": {
+          "package_name": "br.com.freitas.chat_online"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526592724550-rjtl2j1m8sjseb8sr6prdp8mr5muqb6u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.freitas.chat_online",
+            "certificate_hash": "34afce68d3af2fb38188ad5cd5d44bbf1807f160"
+          }
+        },
+        {
+          "client_id": "526592724550-d9vj4r4g6ijeirbn9tr5cutsg4ie8eeu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_WNlcNiZknYaM1McFoblQq1QKAmsZbsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526592724550-d9vj4r4g6ijeirbn9tr5cutsg4ie8eeu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
