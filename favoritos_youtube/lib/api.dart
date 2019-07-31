@@ -1,1 +1,26 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+import 'models/video.dart';
+
 const API_KEY = 'AIzaSyDPyzwJM9BOlKtjiswEG9uBtYq5psX2O80';
+
+class Api {
+  search(String search) async {
+    http.Response response = await http.get(
+        "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$search&type=video&key=$API_KEY&maxResults=10");
+    decode(response);
+  }
+
+  List<Video> decode(http.Response response) {
+    if (response.statusCode == 200) {
+      var decode = json.decode(response.body);
+
+      List<Video> videos =
+          decode['items'].map<Video>((m) => Video.fromJson(m)).toList();
+      return videos;
+    } else
+      throw Exception("Failed to load videos");
+  }
+}
