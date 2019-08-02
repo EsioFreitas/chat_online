@@ -3,7 +3,7 @@ import 'package:favoritos_youtube/api.dart';
 import 'package:favoritos_youtube/models/video.dart';
 import 'dart:async';
 
-class VideosBloc extends BlocBase {
+class VideosBloc implements BlocBase {
   Api api;
   List<Video> videos;
 
@@ -16,7 +16,6 @@ class VideosBloc extends BlocBase {
   Sink get inSearch => _searchController.sink;
 
   VideosBloc() {
-
     api = Api();
     _searchController.stream.listen(_search);
   }
